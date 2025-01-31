@@ -1,20 +1,23 @@
 #!/usr/bin/env bash
 
 SOURCE_FILES=(support_colors helpers)
+SCRIPTDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-for SCRIPT in "${SOURCE_FILES[@]}"; do
-    SCRIPT="./src/${SCRIPT}.sh"
+for fname in "${SOURCE_FILES[@]}"; do
+    SCRIPT="$SCRIPTDIR/src/$fname.sh"
 
     if [ -f SCRIPT ]; then
-        echo -e "$(tput setaf 1)The file does not exists [$SCRIPT].$(tput sgr0)"
+        echo -e "$(tput setaf 1)The script does not exists [$fname].$(tput sgr0)"
 
         exit 1
     fi
 
-    source $SCRIPT
+    # shellcheck disable=SC1090
+    source "$SCRIPT"
 done
 
 checkRunningOnMacOS() {
+    # shellcheck disable=SC2155
     local UNAMEOUT="$(uname -s)"
     local MACHINE
 
@@ -63,7 +66,7 @@ installOhMyZsh()
             return 1
         fi
 
-        /usr/bin/env sh -c "$(curl -fsSL $ZSH_INSTALL_URL)"
+        /usr/bin/env sh -c "$(curl -fsSL "$ZSH_INSTALL_URL")"
 
         success "Oh My Zsh installation complete!"
     else
