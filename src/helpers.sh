@@ -1,28 +1,81 @@
 #!/usr/bin/env bash
 
-checkRunningOnMacOS() {
-    local UNAMEOUT="$(uname -s)"
+ZSH_INSTALL_URL="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
 
-    case "${UNAMEOUT}" in
-        Darwin*)            MACHINE=mac;;
-        *)                  MACHINE="AVOID"
-    esac
+info() {
+    local MESSAGE="$1"
 
-    if [ "$MACHINE" == "AVOID" ]; then
-        echo "${RED}Unsupported OS [$(uname -s)]. This script can be only run on ${BOLD}${BLACK}MacOS${NC}."
+    line "$MESSAGE" 'BLUE'
+}
 
-        exit 1
+success() {
+    local MESSAGE="$1"
+
+    line "$MESSAGE" 'GREEN'
+}
+
+warning() {
+    local MESSAGE="$1"
+
+    line "$MESSAGE" 'YELLOW'
+}
+
+danger() {
+    local MESSAGE="$1"
+
+    line "$MESSAGE" 'RED'
+}
+
+line() {
+    local TEXT="$1"
+    local COLOR_VAR="$2"
+    local COLOR_VALUE="${!COLOR_VAR}"
+
+    if [ -n "$COLOR_VALUE" ]; then
+        echo "${COLOR_VALUE}$TEXT${NC}"
+    else
+        echo "$TEXT"
     fi
 }
 
-installXcode() {
-    if ! xcode-select -v > /dev/null 2>&1; then
-        echo "${RED}Xcode is not install${NC}, But don't worry, I will install it for you.."
-        sleep 1
-        echo "${BLUE}Installing Xcode...${NC}"
-        sleep 2
-        xcode-select --install
+ask() {
+    local MESSAGE="$1"
+    local LIMIT="${2:-0}"
+
+    ARGS=()
+
+    if [ "$LIMIT" -gt 0 ]; then
+        ARGS=(-n $LIMIT)
     fi
 
-    echo "${GREEN}${BOLD}Xcode is installed!${NC}"
+    read "${ARGS[@]}" -p "$(line "$MESSAGE")" RESPONSE
+
+    echo "$RESPONSE"
+}
+
+confirm() {
+    local COUNTER=0
+    local TIMES=${2:-3}
+    local MESSAGE="$1"
+    local RESPONSE
+
+    while [ true ]; do
+        if [ ! "$COUNTER" -lt "$TIMES" ]; then
+            return 1
+        fi
+
+        RESPONSE=$(ask "$MESSAGE? [y/n]: " 1)
+
+        echo
+
+        if [[ $RESPONSE =~ ^[Yy]$ ]]; then
+            return 0
+        elif [[ $RESPONSE =~ ^[Nn]$ ]]; then
+            return 1
+        else
+            warning "Invalid option [${RESPONSE}]"
+
+            ((COUNTER++))
+        fi
+    done
 }
