@@ -3,13 +3,15 @@
 SOURCE_FILES=(support_colors helpers)
 
 for SCRIPT in "${SOURCE_FILES[@]}"; do
-    SCRIPT+=".sh"
+    SCRIPT="./src/${SCRIPT}.sh"
 
-    if ! source $SCRIPT; then
-        echo -e "$(tput setaf 1)There was an error trying to load the script [$SCRIPT]$(tput sgr0)"
+    if [ -f SCRIPT ]; then
+        echo -e "$(tput setaf 1)The file does not exists [$SCRIPT].$(tput sgr0)"
 
         exit 1
     fi
+
+    source $SCRIPT
 done
 
 checkRunningOnMacOS
