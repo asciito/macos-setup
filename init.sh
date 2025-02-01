@@ -61,6 +61,11 @@ installXcode() {
 
 installOhMyZsh()
 {
+    # Pre install zsh if not available
+    if [ -z "$(zsh --version 2>/dev/null)" ]; then
+        brew install zsh
+    fi
+
     if [ ! -f "$HOME/.oh-my-zsh/oh-my-zsh.sh" ]; then
         if ! confirm "Do you want to install [Oh My Zsh]"; then
             warning "Installation will not proceed."
