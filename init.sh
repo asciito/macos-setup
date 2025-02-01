@@ -101,10 +101,25 @@ installHomebrew()
     fi
 }
 
+installGit() {
+    if [ -z "$(git --version 2>/dev/null)" ]; then
+        if ! confirm "Do you want to install [Git]"; then
+            warning "Installation will not proceed."
+
+            return 1
+        fi
+
+        brew install git
+    else
+        info "Git is already installed"
+    fi
+}
+
 main () {
     checkRunningOnMacOS
     installXcode
     installHomebrew
+    installGit
     installOhMyZsh
 }
 
