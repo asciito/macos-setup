@@ -6,7 +6,7 @@ GITHUB_USER="asciito"
 GITHUB_REPO="macos-setup"
 GITHUB_BRANCH="main"
 DOWNLOAD_LINK="https://github.com/$GITHUB_USER/$GITHUB_REPO/archive/refs/heads/$GITHUB_BRANCH.zip"
-PROJECT_DIR="$HOME/.macos-setup/"
+PROJECT_DIR="$HOME/.macos-setups"
 
 # Ensure directory exists
 mkdir -p "$PROJECT_DIR"
