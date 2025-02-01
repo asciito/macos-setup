@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-SOURCE_FILES=(support_colors helpers)
+set -u
+
 SCRIPTDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SOURCE_FILES=(support_colors helpers)
 ZSH_INSTALL_URL="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
 HOMEBREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
 
@@ -19,13 +21,14 @@ for fname in "${SOURCE_FILES[@]}"; do
 done
 
 checkRunningOnMacOS() {
-    # shellcheck disable=SC2155
-    local UNAMEOUT="$(uname -s)"
+    local UNAMEOUT
     local MACHINE
 
+    UNAMEOUT="$(uname -s)"
+
     case "${UNAMEOUT}" in
-    Darwin*) MACHINE=mac ;;
-    *) MACHINE="AVOID"
+        Darwin*)    MACHINE=mac ;;
+        *)          MACHINE="AVOID"
     esac
 
     if [ "$MACHINE" = "AVOID" ]; then
