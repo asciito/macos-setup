@@ -2,6 +2,7 @@
 
 SOURCE_FILES=(support_colors helpers)
 SCRIPTDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ZSH_INSTALL_URL="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
 
 for fname in "${SOURCE_FILES[@]}"; do
     SCRIPT="$SCRIPTDIR/src/$fname.sh"

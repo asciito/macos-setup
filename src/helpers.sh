@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-ZSH_INSTALL_URL="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
-
 info() {
     local MESSAGE="$1"
 
