@@ -78,6 +78,13 @@ installOhMyZsh()
 
         /usr/bin/env sh -c "$(curl -fsSL "$ZSH_INSTALL_URL")"
 
+
+        info "Installing Homebrew on Zsh..."
+        sleep 2
+
+        echo >> "$HOME/.zshrc"
+        echo "eval $("$HOMEBREW_PREFIX"/bin/brew shellenv)" >> "$HOME/.zshrc"
+
         success "Oh My Zsh installation complete!"
     else
         info "Oh My Zsh is already installed"
