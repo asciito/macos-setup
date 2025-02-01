@@ -3,6 +3,7 @@
 SOURCE_FILES=(support_colors helpers)
 SCRIPTDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ZSH_INSTALL_URL="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
+HOMEBREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
 
 for fname in "${SOURCE_FILES[@]}"; do
     SCRIPT="$SCRIPTDIR/src/$fname.sh"
@@ -75,9 +76,27 @@ installOhMyZsh()
     fi
 }
 
+installHomebrew()
+{
+    if [ -z "$(command -v brew)" ]; then
+        if ! confirm "No brew installation was found, do you want to install it"; then
+            warning "Installation abort"
+        fi
+
+        info "Installing [HOMEBREW]..."
+        sleep 1
+        /bin/bash -c "$(curl -fsSL "$HOMEBREW_INSTALL_URL")"
+        
+        echo >> "$HOME/.bashrc"
+        echo "eval $("$HOMEBREW_PREFIX"/bin/brew shellenv)" >> "$HOME/.bashrc"
+        eval "$("$HOMEBREW_PREFIX/bin/brew" shellenv)"
+    fi
+}
+
 main () {
     checkRunningOnMacOS
     installXcode
+    installHomebrew
     installOhMyZsh
 }
 
