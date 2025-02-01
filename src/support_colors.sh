@@ -14,7 +14,7 @@ if test -t 1; then
     # Check if colors are supported
     NCOLORS=$(tput colors)
 
-    if test -n "$NCOLORS" && test "$NCOLORS" -ge 8; then
+    if [ -n "$NCOLORS" ] && [ "$NCOLORS" -ge 8 ]; then
         NC="$(tput sgr0)"
         BLACK="$(tput setaf 0)"
         RED="$(tput setaf 1)"
