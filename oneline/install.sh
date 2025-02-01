@@ -19,7 +19,6 @@ if test -t 1; then
     fi
 fi
 
-
 GITHUB_USER="asciito"
 GITHUB_REPO="macos-setup"
 GITHUB_BRANCH="main"
@@ -45,7 +44,6 @@ if [ -z "$(unzip -v)" ]; then
 
     exit 1
 fi
-
 
 cat <<INFO
 
