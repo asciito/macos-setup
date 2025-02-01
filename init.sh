@@ -95,6 +95,9 @@ installHomebrew()
         echo >> "$HOME/.bashrc"
         echo "eval $("$HOMEBREW_PREFIX"/bin/brew shellenv)" >> "$HOME/.bashrc"
         eval "$("$HOMEBREW_PREFIX/bin/brew" shellenv)"
+
+    else
+        info "Homebrew is already installed"
     fi
 }
 
