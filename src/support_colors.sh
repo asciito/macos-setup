@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 # Define variables
-export  NC=""       && \
-        BLACK=""    && \
-        RED=""      && \
-        GREEN=""    && \
-        YELLOW=""   && \
-        BLUE=""     && \
-        BOLD=""
+export NC=""
+export BLACK=""
+export RED=""
+export GREEN=""
+export YELLOW=""
+export BLUE=""
+export BOLD=""
 
 # Check if stdout is a terminal
 if test -t 1; then
