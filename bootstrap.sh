@@ -126,11 +126,10 @@ installCasks() {
     for CASK in "${HOMEBREW_CASKS[@]}"; do
         if ! confirm "Do you want to install [${CASK}]"; then
             warning "Installation of [${CASK}] aborted!"
-
-            continue
+        else
+            installWithBrew "$CASK" --cask
         fi
 
-        installWithBrew "$CASK" --cask
         echo
     done
 }
@@ -139,11 +138,10 @@ installFormulae() {
     for FORMULA in "${HOMEBREW_FORMULAE[@]}"; do
         if ! confirm "Do you want to install [${FORMULA}]"; then
             warning "Installation of [${FORMULA}] aborted!"
-
-            continue
+        else
+            installWithBrew "$FORMULA"
         fi
 
-        installWithBrew "$FORMULA"
         echo
     done
 }
