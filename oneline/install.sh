@@ -70,4 +70,5 @@ INFO
 sleep 2
 
 # Execute the `init` shell script
-"$PROJECT_DIR/init.sh"
+# shellcheck disable=SC1091
+source "$PROJECT_DIR/init.sh"
