@@ -57,7 +57,7 @@ unzip -oq "$PROJECT_DIR/$ZIP_FILENAME" -d "$PROJECT_DIR"
 mv "$PROJECT_DIR/$ZIP_FILENAME/"* "$PROJECT_DIR/"
 
 # shellcheck disable=SC2115
-rm -rf "$PROJECT_DIR/$ZIP_FILENAME.zip" "$PROJECT_DIR/$ZIP_FILENAME"
+rm -rf "$PROJECT_DIR/$ZIP_FILENAME.zip" "$PROJECT_DIR/$ZIP_FILENAME" "$PROJECT_DIR/oneline"
 
 # Change permissions for every `.sh` file in the project, just in case...
 find "$PROJECT_DIR" -type f -name "*.sh" -exec chmod +x {} \;
