@@ -6,6 +6,8 @@ SCRIPTDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE_FILES=(support_colors helpers)
 ZSH_INSTALL_URL="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
 HOMEBREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+HOMEBREW_FORMULAE=(zsh git colima)
+HOMEBREW_CASKS=(github 1password 1password-cli chatgpt visual-studio-code)
 
 for fname in "${SOURCE_FILES[@]}"; do
     SCRIPT="$SCRIPTDIR/src/$fname.sh"
@@ -64,11 +66,6 @@ installXcode() {
 
 installOhMyZsh()
 {
-    # Pre install zsh if not available
-    if [ -z "$(zsh --version 2>/dev/null)" ]; then
-        brew install zsh
-    fi
-
     if [ ! -f "$HOME/.oh-my-zsh/oh-my-zsh.sh" ]; then
         if ! confirm "Do you want to install [Oh My Zsh]"; then
             warning "Installation will not proceed."
@@ -111,26 +108,37 @@ installHomebrew()
     fi
 }
 
-installGit() {
-    if [ -z "$(git --version 2>/dev/null)" ]; then
-        if ! confirm "Do you want to install [Git]"; then
-            warning "Installation will not proceed."
 
-            return 1
-        fi
+installWithBrew() {
+    local SOFTWARE
+    SOFTWARE="$1"
 
-        brew install git
-    else
-        info "Git is already installed"
+    shift
+
+    if brew info -q "$SOFTWARE" 2>/dev/null | grep -qe Installed; then
+        warning "[$SOFTWARE] is already installed"
+
+        return 0
     fi
+
+    info "Installing [$SOFTWARE]..."
+    sleep 2
+
+    "$HOMEBREW_PREFIX/bin/brew" install "$@" "$SOFTWARE"
 }
 
 main () {
     checkRunningOnMacOS
     installXcode
     installHomebrew
-    installGit
-    installOhMyZsh
+
+    for FORMULA in "${HOMEBREW_FORMULAE[@]}"; do
+        installWithBrew "$FORMULA"
+    done
+
+    for CASK in "${HOMEBREW_CASKS[@]}"; do
+        installWithBrew "$CASK" --cask
+    done
 }
 
 main
