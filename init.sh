@@ -7,7 +7,7 @@ SOURCE_FILES=(support_colors helpers)
 ZSH_INSTALL_URL="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
 HOMEBREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
 HOMEBREW_FORMULAE=(zsh git colima)
-HOMEBREW_CASKS=(github 1password 1password-cli chatgpt visual-studio-code)
+HOMEBREW_CASKS=(github 1password 1password-cli chatgpt visual-studio-code iterm2)
 
 for fname in "${SOURCE_FILES[@]}"; do
     SCRIPT="$SCRIPTDIR/src/$fname.sh"
