@@ -20,4 +20,10 @@ This project will install:
 
 ## One Line Installation
 
-**Working...**
+Just run the next command:
+
+```bash
+curl -fsSL "https://raw.githubusercontent.com/asciito/macos-setup/main/oneline/install.sh" -o- | bash
+```
+
+That's all 😂
