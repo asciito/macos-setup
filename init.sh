@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -u
+set -e
 
 SCRIPTDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE_FILES=(support_colors helpers)
