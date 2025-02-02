@@ -25,9 +25,23 @@ danger() {
 }
 
 line() {
-    local TEXT="$1"
-    local COLOR_VAR="$2"
-    local COLOR_VALUE="${!COLOR_VAR}"
+    local TEXT
+    local COLOR_NAME
+    local COLOR_VALUE
+
+    TEXT="$1"
+    COLOR_NAME="${2:-""}"
+
+    case "${COLOR_NAME}" in
+        BLACK*)     COLOR_VALUE="$BLACK" ;;
+        RED*)       COLOR_VALUE="$RED" ;;
+        GREEN*)     COLOR_VALUE="$GREEN" ;;
+        BLUE*)      COLOR_VALUE="$BLUE" ;;
+        YELLOW*)    COLOR_VALUE="$YELLOW" ;;
+        BOLD*)      COLOR_VALUE="$BOLD" ;;
+        *)          COLOR_VALUE=""
+    esac
+    
 
     if [ -n "$COLOR_VALUE" ]; then
         echo "${COLOR_VALUE}$TEXT${NC}"
