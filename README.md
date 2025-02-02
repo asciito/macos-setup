@@ -23,7 +23,7 @@ This project will install:
 Just run the next command:
 
 ```bash
-curl -fsSL "https://raw.githubusercontent.com/asciito/macos-setup/main/oneline/install.sh" -o- | bash
+/bin/bash -c "$(curl -fsSL "https://raw.githubusercontent.com/asciito/macos-setup/main/oneline/install.sh" -o-)"
 ```
 
 That's all 😂
