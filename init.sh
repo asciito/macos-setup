@@ -75,13 +75,6 @@ installOhMyZsh()
 
         /usr/bin/env sh -c "$(curl -fsSL "$ZSH_INSTALL_URL")"
 
-
-        info "Installing Homebrew on Zsh..."
-        sleep 2
-
-        echo >> "$HOME/.zshrc"
-        echo "eval $("$HOMEBREW_PREFIX"/bin/brew shellenv)" >> "$HOME/.zshrc"
-
         success "Oh My Zsh installation complete!"
     else
         info "Oh My Zsh is already installed"
@@ -99,10 +92,12 @@ installHomebrew()
         sleep 1
         /bin/bash -c "$(curl -fsSL "$HOMEBREW_INSTALL_URL")"
         
-        echo >> "$HOME/.bashrc"
-        echo "eval $("$HOMEBREW_PREFIX"/bin/brew shellenv)" >> "$HOME/.bashrc"
-        eval "$("$HOMEBREW_PREFIX/bin/brew" shellenv)"
+        echo >> "$HOME"/.{bashrc,.zprofile,.zshrc}
+        # Add brew to different shell's config file
+        # shellcheck disable=SC2016
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME"/{.bashrc,.zprofile,.zshrc}
 
+        eval "$(/opt/homebrew/bin/brew shellenv)"
     else
         info "Homebrew is already installed"
     fi
