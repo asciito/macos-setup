@@ -1,25 +1,29 @@
 #!/usr/bin/env bash
 
 info() {
-    local MESSAGE="$1"
+    local MESSAGE
+    MESSAGE="$1"
 
     line "$MESSAGE" 'BLUE'
 }
 
 success() {
-    local MESSAGE="$1"
+    local MESSAGE
+    MESSAGE="$1"
 
     line "$MESSAGE" 'GREEN'
 }
 
 warning() {
-    local MESSAGE="$1"
+    local MESSAGE
+    MESSAGE="$1"
 
     line "$MESSAGE" 'YELLOW'
 }
 
 danger() {
-    local MESSAGE="$1"
+    local MESSAGE
+    MESSAGE="$1"
 
     line "$MESSAGE" 'RED'
 }
@@ -51,13 +55,16 @@ line() {
 }
 
 ask() {
-    local MESSAGE="$1"
-    local LIMIT="${2:-0}"
+    local MESSAGE
+    local LIMIT
+    
+    MESSAGE="$1"
+    LIMIT="${2:-0}"
 
     ARGS=()
 
     if [ "$LIMIT" -gt 0 ]; then
-        ARGS=(-n $LIMIT)
+        ARGS=(-n "$LIMIT")
     fi
 
     read "${ARGS[@]}" -p "$(line "$MESSAGE")" RESPONSE
@@ -66,10 +73,14 @@ ask() {
 }
 
 confirm() {
-    local COUNTER=0
-    local TIMES=${2:-3}
-    local MESSAGE="$1"
+    local COUNTER
+    local TIMES
+    local MESSAGE
     local RESPONSE
+
+    COUNTER=0
+    TIMES=${2:-3}
+    MESSAGE="$1"
 
     while [ true ]; do
         if [ ! "$COUNTER" -lt "$TIMES" ]; then
