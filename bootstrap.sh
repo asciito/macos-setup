@@ -41,7 +41,7 @@ checkRunningOnMacOS() {
 }
 
 installXcode() {
-    if ! xcode-select -v >/dev/null 2>&1; then
+    if ! xcode-select -p >/dev/null 2>&1; then
         if ! confirm "Do you want to install [Xcode]"; then
             warning "Installation will not proceed."
 
