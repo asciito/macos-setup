@@ -122,18 +122,40 @@ installWithBrew() {
     "$HOMEBREW_PREFIX/bin/brew" install "$@" "$SOFTWARE"
 }
 
+installCasks() {
+    for CASK in "${HOMEBREW_CASKS[@]}"; do
+        if ! confirm "Do you want to install [${CASK}]"; then
+            warning "Installation of [${CASK}] aborted!"
+
+            continue
+        fi
+
+        installWithBrew "$CASK" --cask
+        echo
+    done
+}
+
+installFormulae() {
+    for FORMULA in "${HOMEBREW_FORMULAE[@]}"; do
+        if ! confirm "Do you want to install [${FORMULA}]"; then
+            warning "Installation of [${FORMULA}] aborted!"
+
+            continue
+        fi
+
+        installWithBrew "$FORMULA"
+        echo
+    done
+}
+
 main () {
     checkRunningOnMacOS
     installXcode
     installHomebrew
+    installCasks
+    installFormulae
 
-    for FORMULA in "${HOMEBREW_FORMULAE[@]}"; do
-        installWithBrew "$FORMULA"
-    done
-
-    for CASK in "${HOMEBREW_CASKS[@]}"; do
-        installWithBrew "$CASK" --cask
-    done
+    success "You're Mac is setup, you can start using it without any problem"
 }
 
 main
