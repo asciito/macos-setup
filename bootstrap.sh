@@ -10,7 +10,7 @@ HOMEBREW_FORMULAE=(zsh git colima)
 HOMEBREW_CASKS=(github 1password 1password-cli chatgpt visual-studio-code iterm2)
 
 for fname in "${SOURCE_FILES[@]}"; do
-    SCRIPT="$SCRIPTDIR/src/$fname.sh"
+    SCRIPT="$SCRIPTDIR/lib/$fname.sh"
 
     if [ -f SCRIPT ]; then
         echo -e "$(tput setaf 1)The script does not exists [$fname].$(tput sgr0)"

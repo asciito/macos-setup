@@ -69,6 +69,6 @@ ${BLUE}Ok, now it's time to install all your tools${NC}
 INFO
 sleep 2
 
-# Execute the `init` shell script
+# Execute the `bootstrap` shell script
 # shellcheck disable=SC1091
-source "$PROJECT_DIR/init.sh"
+source "$PROJECT_DIR/bootstrap.sh"
