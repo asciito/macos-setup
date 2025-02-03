@@ -160,12 +160,25 @@ installFormulae() {
     return 0
 }
 
+installNvm() {
+    if ! confirm "Do you want to install [NVM]"; then
+        warning "Installation of [NVM] aborted!"
+    else
+        installWithBrew nvm
+    fi
+
+    echo
+
+    return 0
+}
+
 main () {
     checkRunningOnMacOS
     installXcode
     installHomebrew
     installCasks
     installFormulae
+    installNvm
 
     success "You're Mac is setup, you can start using it without any problem"
 }
