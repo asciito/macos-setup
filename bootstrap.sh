@@ -45,7 +45,7 @@ installXcode() {
         if ! confirm "Do you want to install [Xcode]"; then
             warning "Installation will not proceed."
 
-            return 1
+            return 0
         fi
 
         echo "$(danger "Xcode is not installed$"), But don't worry, I will install it for you.."
@@ -55,8 +55,6 @@ installXcode() {
         xcode-select --install
 
         success "Xcode installation complete!"
-
-        return 0
     else
         info "Xcode is already installed"
     fi
@@ -70,7 +68,7 @@ installOhMyZsh()
         if ! confirm "Do you want to install [Oh My Zsh]"; then
             warning "Installation will not proceed."
 
-            return 1
+            return 0
         fi
 
         /usr/bin/env sh -c "$(curl -fsSL "$ZSH_INSTALL_URL")"
@@ -79,6 +77,8 @@ installOhMyZsh()
     else
         info "Oh My Zsh is already installed"
     fi
+
+    return 0
 }
 
 installHomebrew()
@@ -86,6 +86,8 @@ installHomebrew()
     if [ -z "$(command -v brew)" ]; then
         if ! confirm "No brew installation was found, do you want to install it"; then
             warning "Installation abort"
+            
+            return 0
         fi
 
         info "Installing [HOMEBREW]..."
@@ -101,6 +103,8 @@ installHomebrew()
     else
         info "Homebrew is already installed"
     fi
+
+    return 0
 }
 
 
@@ -120,6 +124,8 @@ installWithBrew() {
     sleep 2
 
     "$HOMEBREW_PREFIX/bin/brew" install "$@" "$SOFTWARE"
+
+    return 0
 }
 
 installCasks() {
@@ -132,6 +138,8 @@ installCasks() {
 
         echo
     done
+
+    return 0
 }
 
 installFormulae() {
@@ -144,6 +152,8 @@ installFormulae() {
 
         echo
     done
+
+    return 0
 }
 
 main () {
