@@ -100,6 +100,8 @@ installHomebrew()
         echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME"/{.bashrc,.zprofile,.zshrc}
 
         eval "$(/opt/homebrew/bin/brew shellenv)"
+
+        success "Homebrew installation complete!"
     else
         info "Homebrew is already installed"
     fi
@@ -124,6 +126,8 @@ installWithBrew() {
     sleep 2
 
     "$HOMEBREW_PREFIX/bin/brew" install "$@" "$SOFTWARE"
+
+    success "[$SOFTWARE] installation complete!"
 
     return 0
 }
